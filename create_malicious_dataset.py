@@ -1,5 +1,5 @@
 '''
-    File name: create_benign_dataset.py
+    File name: create_malicious_dataset.py
     Author: Callum Lock
     Date created: 31/03/2018
     Date last modified: 31/03/2018
