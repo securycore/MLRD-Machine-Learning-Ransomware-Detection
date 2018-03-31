@@ -1,1 +1,1 @@
-# MLRD - Machine Learning Ransomware Detection
+# MLRD Machine Learning Ransomware Detection
