@@ -1,1 +1,1 @@
-# MLRD Machine Learning Ransomware Detection 
+# MLURL Machine Learning Malicious URL Detection
