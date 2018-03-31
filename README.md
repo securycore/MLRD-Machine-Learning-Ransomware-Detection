@@ -1,5 +1,5 @@
 # MLRD Machine Learning Ransomware Detection
-MLRD is a machine learning based malware analyzer written in Python 3 that can be used to detect ransomware.
+MLRD is a machine learning based malware analyser written in Python 3 that can be used to detect ransomware.
 
 ## Features:
 * Analyses and Extracts features from PE file headers to determine if a file is malicious or not.
@@ -8,8 +8,7 @@ MLRD is a machine learning based malware analyzer written in Python 3 that can b
 * Cross-Analyse results with Virus Total, Threat Crowd, and Hybrid Analysis.
 
 ## Install:
-'''
-git clone <>
+git clone https://github.com/callumlock/MLRD-Machine-Learning-Ransomware-Detection.git
 
 cd MLRD-Machine-Learning-Ransomware-Detection
 
