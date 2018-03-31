@@ -8,12 +8,13 @@ MLRD is a machine learning based malware analyser written in Python 3 that can b
 * Cross-Analyse results with Virus Total, Threat Crowd, and Hybrid Analysis.
 
 ## Install:
+```
 git clone https://github.com/callumlock/MLRD-Machine-Learning-Ransomware-Detection.git
 
 cd MLRD-Machine-Learning-Ransomware-Detection
 
 sudo pip3 install -r requirements.txt
-
+```
 ## Usage
 
 ### Train model:
