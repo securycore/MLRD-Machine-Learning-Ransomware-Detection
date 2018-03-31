@@ -1,3 +1,10 @@
+'''
+    File name: mlrd_learn.py
+    Author: Callum Lock
+    Date created: 31/03/2018
+    Date last modified: 31/03/2018
+    Python Version: 3.6
+'''
 import pandas as pd
 import numpy as np
 import pickle
