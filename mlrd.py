@@ -148,16 +148,19 @@ class RepChecker():
     # Init method to initalise api keys and base urls.
     def __init__(self):
         # Virus Total api key
-        self.vtapi = base64.b64decode('M2FlNzgwMDU5MTE3ZThkYzdmNjA5YjVlOWU1Y2JmOTRkMGJkNTA3NTAyNzI3NWJiOTM3YTg0NGEwYTYzNDNlYQ==')
+        vtapi = base64.b64decode('M2FlNzgwMDU5MTE3ZThkYzdmNjA5YjVlOWU1Y2JmOTRkMGJkNTA3NTAyNzI3NWJiOTM3YTg0NGEwYTYzNDNlYQ==')
+        self.vtapi = vtapi.decode('utf-8')
         # Virus Total base URL
         self.vtbase = 'https://www.virustotal.com/vtapi/v2/'
         self.http = urllib3.PoolManager()
         # Threat Crowd base URL.
         self.tcbase = 'http://www.threatcrowd.org/searchApi/v2/file/report/?resource='
         # Hybrid Analysis api key.
-        self.hapi = base64.b64decode('OGtzMDhrc3NrOGNja3Nnd3dnY2NnZzRzOG8wczA0Y2tzODA4c2NjYzAwZ2s0a2trZzRnc2s4Zzg0OGc4b2NvNA==')
+        hapi = base64.b64decode('OGtzMDhrc3NrOGNja3Nnd3dnY2NnZzRzOG8wczA0Y2tzODA4c2NjYzAwZ2s0a2trZzRnc2s4Zzg0OGc4b2NvNA==')
+        self.hapi = hapi.decode('utf-8')
         # Hybrid Analysis secret key.
-        self.hsecret = base64.b64decode('MTFhYjc1OTMxZGYzOWFjMmVjYmI3ZGNhNmI1MzYxMmE3YmU4ZjM3MTM5YTAwY2Nm')
+        hsecret = base64.b64decode('MTFhYjc1OTMxZGYzOWFjMmVjYmI3ZGNhNmI1MzYxMmE3YmU4ZjM3MTM5YTAwY2Nm')
+        self.hsecret = hsecret.decode('utf-8')
         # Hybrid Analysis base URL.
         self.hbase = 'https://www.hybrid-analysis.com/api/scan/'
     

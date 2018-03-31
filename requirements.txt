@@ -1,5 +1,5 @@
-pickle
 pefile
+scipy
 yara-python
 pandas
 matplotlib
