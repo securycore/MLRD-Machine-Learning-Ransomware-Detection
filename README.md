@@ -23,7 +23,7 @@ python3 mlrd.py '<FILE TO ANALYSE>'
 ### Usage with Reputation Checking:
 python3 mlrd.py '<FILE TO ANALYSE>' -v
 
-python3 mlrd.py '<FILE TO ANALYSE>' -t
+python3 mlrd.py '<FILE TO ANALYSE> ' -t
 
 python3 mlrd.py '<FILE TO ANALYSE>' -z
 
