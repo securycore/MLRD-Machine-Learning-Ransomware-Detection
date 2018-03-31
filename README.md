@@ -51,3 +51,12 @@ python3 mlrd.py -s
 ```
 python3 mlrd.py -h
 ```
+
+## Test Data:
+* Malicious and Benign test files for use with the program can be found in the Test Data directory.
+* In this directory you will find benign windows PE files and ransomware files within a ZIP file.
+
+## WARNING:
+* Malicious programs are contained within this directory and thus, should be handled with care.
+* The ransomware distributed inside the test virual machine have been gathered for research purposes and are only for use within the scope of this project.
+* Using these programs with malicious intent is strictly prohibited. 
