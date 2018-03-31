@@ -16,10 +16,17 @@ sudo pip3 install -r requirements.txt
 
 ## Usage
 
-### Basic Usage:
-python3 mlrd.py 'FILE TO ANALYSE'
+### Train model:
+```
+python3 mlrd_learn.py
+```
 
+### Basic Usage:
+```
+python3 mlrd.py 'FILE TO ANALYSE'
+```
 ### Usage with Reputation Checking:
+```
 python3 mlrd.py 'FILE TO ANALYSE' -v
 
 python3 mlrd.py 'FILE TO ANALYSE ' -t
@@ -27,12 +34,16 @@ python3 mlrd.py 'FILE TO ANALYSE ' -t
 python3 mlrd.py 'FILE TO ANALYSE' -z
 
 python3 mlrd.py 'FILE TO ANALYSE' -vtz
-
+```
 ### Display Extracted Features for Input File:
+```
 python3 mlrd.py 'FILE TO ANALYSE' -d
-
+```
 ### Open Survey:
+```
 python3 mlrd.py -s
-
+```
 ### Display Help Information:
+```
 python3 mlrd.py -h
+```
