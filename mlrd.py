@@ -1,3 +1,11 @@
+'''
+    File name: mlrd.py
+    Author: Callum Lock
+    Date created: 31/03/2018
+    Date last modified: 31/03/2018
+    Python Version: 3.6
+'''
+
 import os
 import sys
 import argparse
