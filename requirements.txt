@@ -4,7 +4,6 @@ yara-python
 pandas
 matplotlib
 scikit-learn
-json
 requests
 termcolor
 colorama

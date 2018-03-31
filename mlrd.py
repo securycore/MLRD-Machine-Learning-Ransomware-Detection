@@ -151,7 +151,7 @@ class RepChecker():
         vtapi = base64.b64decode('M2FlNzgwMDU5MTE3ZThkYzdmNjA5YjVlOWU1Y2JmOTRkMGJkNTA3NTAyNzI3NWJiOTM3YTg0NGEwYTYzNDNlYQ==')
         self.vtapi = vtapi.decode('utf-8')
         # Virus Total base URL
-        self.vtbase = 'https://www.virustotal.com/vtapi/v2/'
+        self.vtbase = 'https://www.virustotal.com/vtapi/v2/file/report'
         self.http = urllib3.PoolManager()
         # Threat Crowd base URL.
         self.tcbase = 'http://www.threatcrowd.org/searchApi/v2/file/report/?resource='
@@ -167,20 +167,16 @@ class RepChecker():
     # Method for authenticating to Virus Total API and file information
     # in JSON. 
     def get_virus_total(self, md5):
-        parameter = {'resource': md5, 'apikey': self.vtapi}
-        url = self.vtbase + 'file/report'
-        data = urllib.parse.urlencode(parameter).encode("utf-8")
-        result = urllib.request.urlopen(url, data)
-        jdata = json.loads(result.read())
-        return jdata
+        params = {'apikey': self.vtapi, 'resource':md5}
+        data = urllib.parse.urlencode(params).encode("utf-8")
+        r = requests.get(self.vtbase, params=params)
+        return r.json()
 
     # Method for returning file information in JSON from
     # Threat Crowd.
     def get_threatcrowd(self, md5):
-        url = self.tcbase + md5
-        result = urllib.request.urlopen(url)
-        jdata = json.loads(result.read())
-        return jdata
+        r = requests.get(self.tcbase)
+        return r.json()
 
     # Method for authenticating to Hybrid Analysis API and
     # returning file information in JSON.
@@ -192,7 +188,7 @@ class RepChecker():
 
 # Open up survey to evaluate program.
 def survey_mail():
-    print('\n[*] Opening up survey in browser.')
+    print('\n[*] Opening up survey in browser.\n')
     webbrowser.open('https://www.surveymonkey.de/r/N289B82', new=2)
 
 # Function to parse user input. Takes in input file, extracted features,
