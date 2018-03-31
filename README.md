@@ -8,7 +8,7 @@ https://www.surveymonkey.de/r/N289B82
 * Analyses and Extracts features from PE file headers to determine if a file is malicious or not.
 * Features include: Debug Size, Debug RVA, Major Image Version, Major OS Version, Export Size, IAT RVA, Major Linker Version, Minor Linker Version, Number Of Sections, Size Of Stack Reserve, Dll Characteristics, and Bitcoin Addresses.
 * Checks if a file contains a Bitcoin Address using YARA rules.
-* Cross-Analyse results with Virus Total, Threat Crowd, and Hybrid Analysis.
+* Correlate results with Virus Total, Threat Crowd, and Hybrid Analysis.
 
 ## Install:
 ```
