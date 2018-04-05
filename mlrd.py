@@ -236,7 +236,7 @@ def parse(file, features, display, virustotal, threatcrowd, hybridanalysis):
         # that the md5 hash is not in virus total. Otherwise, the number
         # of AV companies that detected the file as malicious is returned
         # If 0, output is in green. 
-        # Between 0 and 25, output is orange.
+        # Between 0 and 25, output is yellow.
         # Over 25, output is red.
         if data['response_code'] == 0:
             print("[-] The file %s with MD5 hash %s was not found in Virus Total" % (os.path.basename(file), md5_hash))
@@ -245,7 +245,7 @@ def parse(file, features, display, virustotal, threatcrowd, hybridanalysis):
             if data['positives'] == 0:
                 print("\n\tDetected by: ", colored(str(data['positives']), 'green'), '/', data['total'], '\n')
             elif data['positives'] > 0 and data['positives'] <= 25:
-                print("\n\tDetected by: ", colored(str(data['positives']), 'orange'), '/', data['total'], '\n')
+                print("\n\tDetected by: ", colored(str(data['positives']), 'yellow'), '/', data['total'], '\n')
             else:
                 print("\n\tDetected by: ", colored(str(data['positives']), 'red'), '/', data['total'], '\n')
 
@@ -275,7 +275,7 @@ def parse(file, features, display, virustotal, threatcrowd, hybridanalysis):
                 if data['permalink']:
                     print("\n\tVirus Total Report: ", data['permalink'], '\n')
             elif data['positives'] > 0 and data['positives'] <= 25:
-                print(colored('[*] ', 'red') + "Virus Total has found the file %s " % os.path.basename(file) + colored("has malicious properties.\n", 'orange'))       
+                print(colored('[*] ', 'red') + "Virus Total has found the file %s " % os.path.basename(file) + colored("has malicious properties.\n", 'yellow'))       
             else:
                 print(colored('[*] ', 'red') + "Virus Total has found the file %s " % os.path.basename(file) + colored("is malicious.\n", 'red'))       
 
