@@ -7,3 +7,4 @@ scikit-learn
 requests
 termcolor
 colorama
+scipy
