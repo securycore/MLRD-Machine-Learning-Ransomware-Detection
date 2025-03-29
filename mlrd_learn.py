@@ -1,66 +1,73 @@
-'''
-    File name: mlrd_learn.py
-    Author: Callum Lock
-    Date created: 31/03/2018
-    Date last modified: 31/03/2018
-    Python Version: 3.6
-'''
 import pandas as pd
 import numpy as np
-import pickle
+import xgboost as xgb
+import lightgbm as lgb
 from sklearn import model_selection
-import sklearn.ensemble as ske
-import sklearn.metrics
-from sklearn.metrics import f1_score
-from sklearn.externals import joblib
+from sklearn.metrics import f1_score, accuracy_score
+import joblib
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_selection import SelectFromModel
 
-# Main code function that trains the random forest algorithm on dataset.
 def main():
-    print('\n[+] Training MLRD using Random Forest Algorithm...')
+    print('\n[+] Upgrading MLRD Machine Learning Model...')
 
-    # Creates pandas dataframe and reads in csv file.
-    df = pd.read_csv('data_file.csv', sep=',')
+    # 데이터셋 로드 (예외 처리 추가)
+    try:
+        df = pd.read_csv('data_file.csv', sep=',')
+    except FileNotFoundError:
+        print("❌ Error: 'data_file.csv' 파일을 찾을 수 없습니다. 데이터셋을 준비하세요.")
+        return
 
-    # Drops FileName, md5Hash and Label from data.
+    # 데이터셋 분포 확인 (추가된 코드)
+    print("\n[+] Dataset Overview:")
+    print(df['Benign'].value_counts())
+
+    # 특징 선택 및 데이터 분할
     X = df.drop(['FileName', 'md5Hash', 'Benign'], axis=1).values
-
-    # Assigns y to label
     y = df['Benign'].values
-
-    # Splitting data into training and test data
     X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Print the number of training and testing samples.
-    print("\n\t[*] Training samples: ", len(X_train))
-    print("\t[*] Testing samples: ", len(X_test))
+    print("\n[*] Training samples:", len(X_train))
+    print("[*] Testing samples:", len(X_test))
 
-    # Train Random forest algorithm on training dataset.
-    clf = ske.RandomForestClassifier(n_estimators=50)
-    clf.fit(X_train, y_train)
+    # 모델 1: 랜덤 포레스트 (데이터 불균형 해결 추가)
+    rf_clf = RandomForestClassifier(n_estimators=100, random_state=42, class_weight='balanced')
+    rf_clf.fit(X_train, y_train)
+    rf_score = accuracy_score(y_test, rf_clf.predict(X_test))
+    rf_f1 = f1_score(y_test, rf_clf.predict(X_test))
 
-    # Perform cross validation and print out accuracy.
-    score = model_selection.cross_val_score(clf, X_test, y_test, cv=10)
-    print("\n\t[*] Cross Validation Score: ", round(score.mean()*100, 2), '%')
+    # 모델 2: XGBoost
+    xgb_clf = xgb.XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)
+    xgb_clf.fit(X_train, y_train)
+    xgb_score = accuracy_score(y_test, xgb_clf.predict(X_test))
+    xgb_f1 = f1_score(y_test, xgb_clf.predict(X_test))
 
-    # Calculate f1 score.
-    y_train_pred = model_selection.cross_val_predict(clf, X_train, y_train, cv=3)
-    f = f1_score(y_train, y_train_pred)
-    print("\t[*] F1 Score: ", round(f*100, 2), '%')
+    # 모델 3: LightGBM
+    lgb_clf = lgb.LGBMClassifier(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)
+    lgb_clf.fit(X_train, y_train)
+    lgb_score = accuracy_score(y_test, lgb_clf.predict(X_test))
+    lgb_f1 = f1_score(y_test, lgb_clf.predict(X_test))
 
-    # Save the configuration of the classifier and features as a pickle file.
-    all_features = X.shape[1]
-    features = []
+    print("\n[*] Model Performance:")
+    print(f"  - RandomForest Accuracy: {rf_score*100:.2f}%, F1-score: {rf_f1:.2f}")
+    print(f"  - XGBoost Accuracy: {xgb_score*100:.2f}%, F1-score: {xgb_f1:.2f}")
+    print(f"  - LightGBM Accuracy: {lgb_score*100:.2f}%, F1-score: {lgb_f1:.2f}")
 
-    for feature in range(all_features):
-        features.append(df.columns[2+feature])
+    # 🔹 최적 모델 자동 선택
+    best_model = max(
+        [(rf_f1, rf_clf), (xgb_f1, xgb_clf), (lgb_f1, lgb_clf)], key=lambda x: x[0]
+    )[1]
 
-    try:
-        print("\n[+] Saving algorithm and feature list in classifier directory...")
-        joblib.dump(clf, 'classifier/classifier.pkl')
-        open('classifier/features.pkl', 'wb').write(pickle.dumps(features))
-        print("\n[*] Saved.")
-    except:
-        print('\n[-] Error: Algorithm and feature list not saved correctly.\n')
+    print("\n[+] Selecting best model...")
+    joblib.dump(best_model, 'classifier/best_model.pkl')
+    print("[*] Model saved successfully.")
+
+    # 🔹 특징 선택 수행 (Feature Selection)
+    print("\n[+] Performing feature selection...")
+    feature_selector = SelectFromModel(best_model, threshold="median", prefit=True)
+    X_selected = feature_selector.transform(X)
+
+    print(f"[*] Reduced features from {X.shape[1]} to {X_selected.shape[1]}.")
 
 if __name__ == '__main__':
     main()

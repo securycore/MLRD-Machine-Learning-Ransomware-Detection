@@ -10,6 +10,11 @@ https://www.surveymonkey.de/r/N289B82
 * Checks if a file contains a Bitcoin Address using YARA rules.
 * Correlate results with Virus Total, Threat Crowd, and Hybrid Analysis.
 
+## Upgrades:
+* Train 3 model, and select the best model. (based on Accuracy and F1-score)
+* When you train the model, this program choose major features in 15 features. It makes AI model more efficient.
+* Chrome extension based on MLRD. (expected)
+
 ## Install:
 ```
 git clone https://github.com/callumlock/MLRD-Machine-Learning-Ransomware-Detection.git
@@ -59,4 +64,4 @@ python3 mlrd.py -h
 ## WARNING:
 * Malicious programs are contained within this directory and thus, should be handled with care.
 * The ransomware distributed inside the test virual machine have been gathered for research purposes and are only for use within the scope of this project.
-* Using these programs with malicious intent is strictly prohibited. 
+* Using these programs with malicious intent is strictly prohibited.
